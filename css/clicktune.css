@@ -1,0 +1,111 @@
+body {
+  background-color: white;
+  text-align: center;
+  font-size: 16px;
+  color: black; }
+  body #root {
+    width: 250px;
+    display: inline-block; }
+    body #root img {
+      width: 80px;
+      height: 80px; }
+
+.cl_options {
+  border: 1px solid black;
+  list-style-type: none;
+  text-align: left;
+  margin: 0;
+  padding: 5px;
+  display: none; }
+  .cl_options li {
+    margin: 5px; }
+    .cl_options li span {
+      display: inline-block;
+      width: 90px; }
+
+.wrap-box {
+  position: relative; }
+
+.test-box1 {
+  background-color: aqua;
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  margin-right: 30px; }
+
+.test-box2 {
+  background-color: cadetblue;
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  margin-right: 30px; }
+
+.test-box3 {
+  background-color: coral;
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  margin-right: 30px; }
+
+.cl_container {
+  position: absolute;
+  right: 100px;
+  z-index: 2; }
+
+.cl_controls {
+  background-color: #fff;
+  display: none;
+  border: 1px solid black;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 340px;
+  position: absolute;
+  z-index: 999; }
+
+.cl_controls-li {
+  padding: 10px;
+  margin: 20px;
+  border: 1px solid red; }
+
+.cl_inp-text {
+  width: 30px; }
+
+.cl_controls-ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; }
+
+.cl_colorbox {
+  width: 35px;
+  height: 20px;
+  background-color: #000;
+  display: inline-block; }
+
+.cl_colorbox-inp {
+  width: 45px; }
+
+.cl_option-range {
+  padding-bottom: 10px;
+  border-bottom: 1px dotted black; }
+
+.cl_option-color {
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted black; }
+
+.cl_power-block {
+  border: 1px solid black;
+  margin-bottom: 20px;
+  padding: 10px; }
+  .cl_power-block button {
+    margin-top: 5px; }
+
+.cl_main-class .cl_inp-text {
+  width: 80px; }
+
+.cl_main-id .cl_inp-text {
+  width: 80px; }
+
+/*# sourceMappingURL=clicktune.css.map */
