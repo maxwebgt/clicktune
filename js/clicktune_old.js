@@ -39,11 +39,17 @@
 					clicktune.opened = false;
 				}
 				else {
+
+
+
+
 					coord1 = e.clientX + 'px';
 					coord2 = e.clientY + 'px';
 					$(".cl_controls").css({"left":coord1});
 					$(".cl_controls").css({"top":coord2});
 					$(".cl_controls").slideToggle(300);
+//					console.log(getComputedStyle(e.target).opacity);
+//					e.target.style.opacity =1 ;
 					clicktune.opened = true;
 				}
 			}
