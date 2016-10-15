@@ -4,7 +4,7 @@ clicktune = {
 			options: {
 				opacity: true,
 				'box-shadow': false,
-				'text-shadow': false
+				'text-shadow': true
 			}
 	};
 /// || main control
@@ -15,8 +15,21 @@ clicktune = {
 		$(".cl_ind-enable").click(function(ee){
 			(clicktune.enable) ? clicktune.enable = false : clicktune.enable = true;
 			console.log("clicktune status: " + clicktune.enable);
-			(clicktune.enable) ? $(".cl_ind-enable").text("Включен") : $(".cl_ind-enable").text("Выключен");
+			(clicktune.enable) ? $(".cl_ind-enable").text("Включен").css({ 'background-color': 'rgba(0, 255, 0, 0.5)'}) : $(".cl_ind-enable").text("Выключен");
 		});
+		document.getElementById("cl_label-opa").addEventListener("click", function(){
+			(clicktune.options.opacity) ? clicktune.options.opacity = false : clicktune.options.opacity = true;
+			console.log("opacity status: " + clicktune.options.opacity);
+		});
+		document.getElementById("cl_label-bs").addEventListener("click", function(){
+			(clicktune.options['box-shadow']) ? clicktune.options['box-shadow'] = false : clicktune.options['box-shadow'] = true;
+			console.log("box-shadow status: " + clicktune.options['box-shadow']);
+		});
+		document.getElementById("cl_label-ts").addEventListener("click", function(){
+			(clicktune.options['text-shadow']) ? clicktune.options['text-shadow'] = false : clicktune.options['text-shadow'] = true;
+			console.log("text-shadow status: " + clicktune.options['text-shadow']);
+		});
+
 		$(window).click(function(e) {
 			if (clicktune.enable) {
 				var container = $(".cl_container");
@@ -29,31 +42,52 @@ clicktune = {
 					return;
 				}
 				if (clicktune.opened) {
-//					$(".cl_controls").slideToggle(300);
 					document.body.removeChild(document.getElementById("cl_controls"));
 					clicktune.opened = false;
 				}
 				else {
 					clGenHtml('div', 'cl_controls', '', 'cl_controls', 'body');
 					if (clicktune.options.opacity) {
-						clGenInput('range', 'cl_opt-opa', '', 'cl_opt-opa', '', 'cl_controls');
-						clGenHtml('div', 'xxx', getComputedStyle(e.target).opacity, 'xxx', 'cl_controls');
-						$(".cl_opt-opa").change(function(d) {
-							console.log(d.target.value);
+						clGenHtml('div', 'cl_part', '', 'cl_part-opa', 'cl_controls');
+						clGenHtml('div', 'cl_ptitle', 'Прозрачность', '', 'cl_part-opa');
+						clGenHtml('div', 'cl_prop', '', 'cl_prop-opa', 'cl_part-opa');
+						clGenHtml('span', '', 'opacity', '', 'cl_prop-opa');
+						clGenInput2Do('text', getComputedStyle(e.target).opacity, 'cl_inpOpaText', "cl_prop-opa");
+						console.log(e.target.style);
+						clGenInput("range", 'cl_inpOpaRange', 'cl_prop-opa', 0, 1, 0.01, getComputedStyle(e.target).opacity);	document.getElementById('cl_inpOpaRange').addEventListener("input", function(d) {
 							e.target.style.opacity = d.target.value;
-							console.log(e);
-//							lolka = document.getElementById('xxx');
-//							console.log(lolka.innerHTML());
-							document.getElementById('xxx').innerHTML = d.target.value;
+							document.getElementById('cl_inpOpaText').value = d.target.value;
+							console.log("ya tut");
 						});
+
+
+//						clGenHtml('div', 'xxx', getComputedStyle(e.target).opacity, 'xxx', 'cl_controls');
+//						$("#cl_opt-opa").change(function(d) {
+//							console.log(d.target.value);
+////							e.target.style.opacity = d.target.value;
+////							console.log(e);
+//////							lolka = document.getElementById('xxx');
+//////							console.log(lolka.innerHTML());
+////							document.getElementById('xxx').innerHTML = d.target.value;
+//						});
+
+
+//						document.getElementById('cl_opt-opa').addEventListener("onchange", function(eee) {
+//							console.log("i change");
+//							console.log(eee);
+//						});
+//						console.log(gika.oninput);
+//						$("#cl_opt-opa").change(function(d) {
+//							console.log(d.target.value);
+//							e.target.style.opacity = d.target.value;
+//							console.log(e);
+////							lolka = document.getElementById('xxx');
+////							console.log(lolka.innerHTML());
+//							document.getElementById('xxx').innerHTML = d.target.value;
+//						});
 					}
-
-
 					coord1 = e.clientX + 'px';
 					coord2 = e.clientY + 'px';
-
-
-
 					$(".cl_controls").css({"left":coord1});
 					$(".cl_controls").css({"top":coord2});
 					$(".cl_controls").slideToggle(300);
@@ -65,9 +99,6 @@ clicktune = {
 		});
 	};
 /// end || main control
-
-
-
 
 function clGenHtml(tag, classed, content, id, target){
 	var div = document.createElement(tag);
@@ -81,33 +112,73 @@ function clGenHtml(tag, classed, content, id, target){
 	return target.appendChild(div);
 };
 
-function clGenInput(type, classed, content, placeholder, id, target) {
+function clGenInput(type, id, target, min, max, step, value) {
 	var div = document.createElement("input");
-	div.className = classed;
-	div.innerHTML = content;
-	div.id = id;
-	div.setAttribute('min', 0);
-	div.setAttribute('max', 1);
-	div.setAttribute('step', 0.01);
+//	div.className = classed;
+//	div.innerHTML = content;
 	div.setAttribute('type', type);
+	div.id = id;
+	div.setAttribute('min', min);
+	div.setAttribute('max', max);
+	div.setAttribute('step', step);
+	div.setAttribute('value', value);
 	target = document.getElementById(target);
 	return target.appendChild(div);
-
 };
+function clGenInputSimple(type, chek_status, id, target) {
+	var div = document.createElement("input");
+	div.id = id;
+	div.setAttribute('type', type);
+	if (chek_status) {
+		div.setAttribute('checked','checked');
+	}
+	target = document.getElementById(target);
+	return target.appendChild(div);
+};
+
+function clGenInput2Do(type, value, id, target) {
+	var div = document.createElement("input");
+	div.id = id;
+	div.setAttribute('type', type);
+	div.setAttribute('value', value);
+	target = document.getElementById(target);
+	return target.appendChild(div);
+};
+
+//// Hi generate main interface
+
+clGenHtml('div', 'cl_container', '', 'cl_container', 'body').style.cssText = "position: absolute; right: 100px; z-index: 2";
+clGenHtml('button', 'cl_ind-enable', 'Выключен', 'cl_ind-enable', 'cl_container').style.cssText = "background-color: rgba(255, 0, 0, 0.5)";
+clGenHtml('button', 'cl_btn-opt', 'настройки', 'cl_btn-opt', 'cl_container');
+clGenHtml('div', 'cl_options', '', 'cl_options', 'cl_container').style.display = 'none';
+clGenHtml('label', '', 'opacity', 'cl_label-opa', 'cl_options');
+clGenInputSimple('checkbox', clicktune.options.opacity, 'cl_opt-opacity', 'cl_label-opa');
+clGenHtml('label', '', 'box-shadow', 'cl_label-bs', 'cl_options');
+clGenInputSimple('checkbox', clicktune.options['box-shadow'], 'cl_opt-bs', 'cl_label-bs');
+clGenHtml('label', '', 'text-shadow', 'cl_label-ts', 'cl_options');
+clGenInputSimple('checkbox', clicktune.options['text-shadow'], 'cl_opt-ts', 'cl_label-ts');
+
+
+//clGenHtml('span', 'cl_ind-enable', 'Выключен', 'cl_ind-enable', 'cl_power-block').style.cssText = "color: red;background-color: black;";
 
 
 //Generate controls clicktune
-clGenHtml('div', 'cl_container', '', 'cl_container', 'body');
-clGenHtml('div', 'cl_power-block', '', 'cl_power-block', 'cl_container');
-clGenHtml('span', 'cl_ind-enable', 'Выключен', 'cl_ind-enable', 'cl_power-block');
-clGenHtml('div', 'hz', '', 'hz', 'cl_power-block');
-clGenHtml('button', 'cl_btn-opt', 'настройки', 'cl_btn-opt', 'hz');
-clGenHtml('div', 'cl_options', '', 'cl_options', 'cl_container');
-clGenHtml('span', '', 'настройки:', '', 'cl_options');
-clGenHtml('div', 'cl_div-opt', '', 'cl_div-opt', 'cl_options');
-clGenInput('checkbox', 'cl_opt-opacity', '', '', '', 'cl_div-opt');
+//clGenHtml('div', 'cl_container', '', 'cl_container', 'body');
+//lolka = clGenInput('text', 'cl_opt-opacity', '', '', '', 'cl_div-opt');
+//lolka.style.cssText = "color: red;background-color: black;";
+//clGenHtml('div', 'cl_power-block', '', 'cl_power-block', 'cl_container');
+//clGenHtml('div', 'hz', '', 'hz', 'cl_power-block');
+//clGenHtml('button', 'cl_btn-opt', 'настройки', 'cl_btn-opt', 'hz');
+//clGenHtml('div', 'cl_options', '', 'cl_options', 'cl_container');
+//clGenHtml('span', '', 'настройки:', '', 'cl_options');
+//clGenHtml('div', 'cl_div-opt', '', 'cl_div-opt', 'cl_options');
+//clGenInput('checkbox', 'cl_opt-opacity', '', '', '', 'cl_div-opt');
+
+//lolka = clGenInput('text', 'cl_opt-opacity', '', '', '', 'cl_div-opt');
+//lolka.style.cssText = "color: red;background-color: black;";
 
 
+//console.log(lolka.value = "huy");
 //Generate controls clicktune
 
 
