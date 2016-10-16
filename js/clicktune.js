@@ -238,12 +238,6 @@ clGenInputSimple('checkbox', clicktune.options['text-shadow'], 'cl_opt-ts', 'cl_
 
 
 
-
-
-
-
-
-
 //<div class="cl_part" style="border:1px solid red">
 //			<div class="cl_ptitle">Box-shadow</div>
 //			<div class="cl_prop" id="cl_prop-bs1">

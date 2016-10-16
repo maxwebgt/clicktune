@@ -16,12 +16,12 @@ body {
   opacity: 0.8; }
 
 .test-box2 {
-  background-color: cadetblue;
+  background-color: bisque;
   width: 200px;
   height: 200px;
   display: inline-block;
   margin-right: 30px;
-  box-shadow: rgba(0, 0, 255, 0.8) 12px 5px 7px 9px; }
+  box-shadow: rgba(0, 0, 0, 0.8) 12px 5px 7px 9px; }
 
 .test-box3 {
   box-shadow: red 2px 4px 7px 2px;
@@ -31,6 +31,10 @@ body {
   display: inline-block;
   margin-right: 30px;
   opacity: 0.1; }
+  .test-box3 .text-blocl9 ul {
+    background-color: #fff; }
+    .test-box3 .text-blocl9 ul li a {
+      color: red; }
 
 .test-box4 {
   background-color: aqua;
@@ -38,7 +42,7 @@ body {
   height: 200px;
   display: inline-block;
   margin-right: 30px;
-  box-shadow: rgba(0, 0, 255, 0.8) 5px 6px 7px 9px; }
+  box-shadow: rgba(0, 0, 0, 0.8) 5px 6px 7px 5px; }
 
 .test-box5 {
   background-color: aqua;
@@ -46,6 +50,6 @@ body {
   height: 200px;
   display: inline-block;
   margin-right: 30px;
-  box-shadow: rgba(0, 0, 255, 0.2) 25px 20px 4px 5px; }
+  box-shadow: rgba(0, 0, 0, 0.2) 25px 20px 4px 5px; }
 
 /*# sourceMappingURL=main.css.map */
