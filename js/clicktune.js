@@ -62,7 +62,7 @@ clicktune = {
 					if (clicktune.options["box-shadow"]) {
 						if (getComputedStyle(e.target).boxShadow=="none") {
 							console.log('свойство отсутствует. Сгенерировано свойство из дефолтных настроек.');
-							e.target.style.boxShadow = "2px 2px 2px 2px rgba(0,0,0,0.6)"
+							e.target.style.boxShadow = "rgba(0,0,0,0.6) 2px 3px 4px 5px"
 						}
 						clGenHtml('div', 'cl_part', '', 'cl_part-bs', 'cl_controls');
 						clGenHtml('div', 'cl_ptitle', 'box-shadow', '', 'cl_part-bs');
@@ -72,11 +72,16 @@ clicktune = {
 						var cl_arrBs = getComputedStyle(e.target).boxShadow.replace(/.*\) /, "").split(" ");
 
 						clGenInput2Do('text', cl_arrBs[0], 'cl_inpBSXText', "cl_prop-bs1");
-						clGenInput("range", 'cl_inpBSXRange', 'cl_prop-bs1', 0, 200, 1, cl_arrBs[0]);
+						clGenInput("range", 'cl_inpBSXRange', 'cl_prop-bs1',-200, 200, 1, cl_arrBs[0].replace("px",""));
 						document.getElementById('cl_inpBSXRange').addEventListener("input", function(d) {
-							cl_arrBs[0] = d.target.value;
-							e.target.style.boxShadow = "rgba(0,0,0,0.7) " + cl_arrBs[0] + 'px ' + '20px ' + '10px ' + '5px';
-							document.getElementById('cl_inpBSXText').value = d.target.value;
+//							console.log("ya tut");
+							console.log(cl_arrBs);
+							cl_arrBs[0] = d.target.value + 'px';
+							e.target.style.boxShadow = "rgba(0,0,0,0.7) " + cl_arrBs[0] + ' ' + cl_arrBs[1] + ' ' + cl_arrBs[2] + ' ' + cl_arrBs[3];
+//							console.log(e.target.style.boxShadow);
+//
+//							console.log(lolke);
+							document.getElementById('cl_inpBSXText').value = d.target.value + 'px';
 								});
 
 						////////////property two
@@ -86,15 +91,31 @@ clicktune = {
 						console.log(getComputedStyle(e.target).boxShadow);
 						cl_arrBs = getComputedStyle(e.target).boxShadow.replace(/.*\) /, "").split(" ");
 
-						clGenInput2Do('text', cl_arrBs[1], 'cl_inpBSXText2', "cl_prop-bs2");
-						clGenInput("range", 'cl_inpBSXRange2', 'cl_prop-bs2', 0, 200, 1, cl_arrBs[1]);
-						document.getElementById('cl_inpBSXRange2').addEventListener("input", function(d) {
-							cl_arrBs[1] = d.target.value;
-							e.target.style.boxShadow = "rgba(0,0,0,0.7) " + cl_arrBs[0] + 'px ' + cl_arrBs[1] + 'px ' + '10px ' + '5px';
-							document.getElementById('cl_inpBSXText2').value = d.target.value;
+						clGenInput2Do('text', cl_arrBs[1], 'cl_inpBSYText', "cl_prop-bs2");
+						clGenInput("range", 'cl_inpBSYRange', 'cl_prop-bs2', -200, 200, 1, cl_arrBs[1].replace("px",""));
+						document.getElementById('cl_inpBSYRange').addEventListener("input", function(d) {
+							cl_arrBs[1] = d.target.value + 'px';
+							e.target.style.boxShadow = "rgba(0,0,0,0.7) " + cl_arrBs[0] + ' ' + cl_arrBs[1] + ' ' + cl_arrBs[2] + ' ' + cl_arrBs[3];
+							document.getElementById('cl_inpBSYText').value = d.target.value + 'px';
+								});
+						/////////////property 3
+
+						clGenHtml('div', 'cl_prop', '', 'cl_prop-bs3', 'cl_part-bs');
+						clGenHtml('span', '', 'Размытие', '', 'cl_prop-bs3');
+						console.log(getComputedStyle(e.target).boxShadow);
+						cl_arrBs = getComputedStyle(e.target).boxShadow.replace(/.*\) /, "").split(" ");
+						clGenInput2Do('text', cl_arrBs[2], 'cl_inpBSBText', "cl_prop-bs3");
+						clGenInput("range", 'cl_inpBSBRange', 'cl_prop-bs3', -200, 200, 1, cl_arrBs[2].replace("px",""));
+						document.getElementById('cl_inpBSBRange').addEventListener("input", function(d) {
+							cl_arrBs[2] = d.target.value + 'px';
+							e.target.style.boxShadow = "rgba(0,0,0,0.7) " + cl_arrBs[0] + ' ' + cl_arrBs[1] + ' ' + cl_arrBs[2] + ' ' + cl_arrBs[3];
+							document.getElementById('cl_inpBSBText').value = d.target.value + 'px';
 								});
 
-
+//
+//							<span>Размытие</span>
+//				<input id="cl_inpBSBText" type="text">
+//				<input id="cl_inpBSBRange" type="range">
 
 
 //						console.log(ara);
