@@ -33,9 +33,18 @@ clicktune = {
 		$(window).click(function(e) {
 			if (clicktune.enable) {
 				var container = $(".cl_container");
+//				console.log(e.target);
+//
+//				var divka = document.querySelector(e.target);
+//				console.log(divka.closest("#cl_container"));
+//				if (document.getElementById("cl_container").has(e.target).length !== 0){
+//					return;
+//				}
+				var container = $(".cl_container");
 				if (container.has(e.target).length !== 0){
 					return;
 				}
+//				document.getElementById("cl_container")
 				var container2 = $(".cl_controls");
 				if (container2.has(e.target).length !== 0){
 	//			if(e.target!=container2[0]&&!container2.has(e.target).length) {
@@ -46,7 +55,7 @@ clicktune = {
 					clicktune.opened = false;
 				}
 				else {
-					clGenHtml('div', 'cl_controls', '', 'cl_controls', 'body');
+					clGenHtml('div', 'cl_controls', '', 'cl_controls', 'body').style.cssText="background-color: #fff;display: none;border: 1px solid black;width: 340px;position: absolute;z-index: 999";
 					if (clicktune.options.opacity) {
 						clGenHtml('div', 'cl_part', '', 'cl_part-opa', 'cl_controls');
 						clGenHtml('div', 'cl_ptitle', 'Прозрачность', '', 'cl_part-opa');
@@ -66,7 +75,7 @@ clicktune = {
 						}
 						clGenHtml('div', 'cl_part', '', 'cl_part-bs', 'cl_controls');
 						clGenHtml('div', 'cl_ptitle', 'box-shadow', '', 'cl_part-bs');
-						clGenHtml('div', 'cl_prop', '', 'cl_prop-bs1', 'cl_part-bs');
+						clGenHtml('div', 'cl_prop', '', 'cl_prop-bs1', 'cl_part-bs').style.cssText="border-bottom: 1px dashed #616161; padding-bottom: 5px";
 						clGenHtml('span', '', 'Сдвиг по Х', '', 'cl_prop-bs1');
 						console.log(getComputedStyle(e.target).boxShadow);
 						var cl_arrBs = getComputedStyle(e.target).boxShadow.replace(/.*\) /, "").split(" ");
@@ -75,7 +84,7 @@ clicktune = {
 						clGenInput("range", 'cl_inpBSXRange', 'cl_prop-bs1',-200, 200, 1, cl_arrBs[0].replace("px",""));
 						document.getElementById('cl_inpBSXRange').addEventListener("input", function(d) {
 //							console.log("ya tut");
-							console.log(cl_arrBs);
+//							console.log(cl_arrBs);
 							cl_arrBs[0] = d.target.value + 'px';
 							e.target.style.boxShadow = "rgba(0,0,0,0.7) " + cl_arrBs[0] + ' ' + cl_arrBs[1] + ' ' + cl_arrBs[2] + ' ' + cl_arrBs[3];
 //							console.log(e.target.style.boxShadow);
@@ -86,7 +95,7 @@ clicktune = {
 
 						////////////property two
 
-						clGenHtml('div', 'cl_prop', '', 'cl_prop-bs2', 'cl_part-bs');
+						clGenHtml('div', 'cl_prop', '', 'cl_prop-bs2', 'cl_part-bs').style.cssText="border-bottom: 1px dashed #616161; padding-bottom: 5px";
 						clGenHtml('span', '', 'Сдвиг по Y', '', 'cl_prop-bs2');
 						console.log(getComputedStyle(e.target).boxShadow);
 						cl_arrBs = getComputedStyle(e.target).boxShadow.replace(/.*\) /, "").split(" ");
@@ -100,7 +109,7 @@ clicktune = {
 								});
 						/////////////property 3
 
-						clGenHtml('div', 'cl_prop', '', 'cl_prop-bs3', 'cl_part-bs');
+						clGenHtml('div', 'cl_prop', '', 'cl_prop-bs3', 'cl_part-bs').style.cssText="border-bottom: 1px dashed #616161; padding-bottom: 5px";
 						clGenHtml('span', '', 'Размытие', '', 'cl_prop-bs3');
 						console.log(getComputedStyle(e.target).boxShadow);
 						cl_arrBs = getComputedStyle(e.target).boxShadow.replace(/.*\) /, "").split(" ");
@@ -111,11 +120,21 @@ clicktune = {
 							e.target.style.boxShadow = "rgba(0,0,0,0.7) " + cl_arrBs[0] + ' ' + cl_arrBs[1] + ' ' + cl_arrBs[2] + ' ' + cl_arrBs[3];
 							document.getElementById('cl_inpBSBText').value = d.target.value + 'px';
 								});
+						/////////////property 4
 
-//
-//							<span>Размытие</span>
-//				<input id="cl_inpBSBText" type="text">
-//				<input id="cl_inpBSBRange" type="range">
+						clGenHtml('div', 'cl_prop', '', 'cl_prop-bs4', 'cl_part-bs').style.cssText="border-bottom: 1px dashed #616161; padding-bottom: 5px";
+						clGenHtml('span', '', 'Раcтяжение', '', 'cl_prop-bs4');
+						console.log(getComputedStyle(e.target).boxShadow);
+						cl_arrBs = getComputedStyle(e.target).boxShadow.replace(/.*\) /, "").split(" ");
+						clGenInput2Do('text', cl_arrBs[3], 'cl_inpBSSText', "cl_prop-bs4");
+						clGenInput("range", 'cl_inpBSSRange', 'cl_prop-bs4', -200, 200, 1, cl_arrBs[2].replace("px",""));
+						document.getElementById('cl_inpBSSRange').addEventListener("input", function(d) {
+							cl_arrBs[3] = d.target.value + 'px';
+							e.target.style.boxShadow = "rgba(0,0,0,0.7) " + cl_arrBs[0] + ' ' + cl_arrBs[1] + ' ' + cl_arrBs[2] + ' ' + cl_arrBs[3];
+							document.getElementById('cl_inpBSSText').value = d.target.value + 'px';
+								});
+
+
 
 
 //						console.log(ara);
