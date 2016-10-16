@@ -1,9 +1,9 @@
 clicktune = {
-			enable: false,
+			enable: true,
 			opened: false,
 			options: {
 				opacity: true,
-				'box-shadow': false,
+				'box-shadow': true,
 				'text-shadow': true
 			}
 	};
@@ -15,7 +15,7 @@ clicktune = {
 		$(".cl_ind-enable").click(function(ee){
 			(clicktune.enable) ? clicktune.enable = false : clicktune.enable = true;
 			console.log("clicktune status: " + clicktune.enable);
-			(clicktune.enable) ? $(".cl_ind-enable").text("Включен").css({ 'background-color': 'rgba(0, 255, 0, 0.5)'}) : $(".cl_ind-enable").text("Выключен");
+			(clicktune.enable) ? $(".cl_ind-enable").text("Включен").css({'background-color': 'rgba(0, 255, 0, 0.5)'}) : $(".cl_ind-enable").text("Выключен").css({'background-color': 'rgba(255, 0, 0, 0.5)'});
 		});
 		document.getElementById("cl_label-opa").addEventListener("click", function(){
 			(clicktune.options.opacity) ? clicktune.options.opacity = false : clicktune.options.opacity = true;
@@ -53,37 +53,36 @@ clicktune = {
 						clGenHtml('div', 'cl_prop', '', 'cl_prop-opa', 'cl_part-opa');
 						clGenHtml('span', '', 'opacity', '', 'cl_prop-opa');
 						clGenInput2Do('text', getComputedStyle(e.target).opacity, 'cl_inpOpaText', "cl_prop-opa");
-						console.log(e.target.style);
+//						console.log(e.target.style);
 						clGenInput("range", 'cl_inpOpaRange', 'cl_prop-opa', 0, 1, 0.01, getComputedStyle(e.target).opacity);	document.getElementById('cl_inpOpaRange').addEventListener("input", function(d) {
 							e.target.style.opacity = d.target.value;
 							document.getElementById('cl_inpOpaText').value = d.target.value;
-							console.log("ya tut");
-						});
+								});
+					}
+					if (clicktune.options["box-shadow"]) {
+						if (getComputedStyle(e.target).boxShadow=="none") {
+							console.log('свойство отсутствует. Сгенерировано свойство из дефолтных настроек.');
+							e.target.style.boxShadow = "2px 2px 2px 2px rgba(0,0,0,0.6)"
+						}
+						clGenHtml('div', 'cl_part', '', 'cl_part-bs', 'cl_controls');
+						clGenHtml('div', 'cl_ptitle', 'box-shadow', '', 'cl_part-bs');
+						clGenHtml('div', 'cl_prop', '', 'cl_prop-bs1', 'cl_part-bs');
+						clGenHtml('span', '', 'Сдвиг по Х', '', 'cl_part-bs');
+						console.log(getComputedStyle(e.target).boxShadow);
+		var ara = getComputedStyle(e.target).boxShadow.match(/(\d+\.\d+)|(\d+)/g);
+						console.log(ara);
 
-
-//						clGenHtml('div', 'xxx', getComputedStyle(e.target).opacity, 'xxx', 'cl_controls');
-//						$("#cl_opt-opa").change(function(d) {
-//							console.log(d.target.value);
-////							e.target.style.opacity = d.target.value;
-////							console.log(e);
-//////							lolka = document.getElementById('xxx');
-//////							console.log(lolka.innerHTML());
-////							document.getElementById('xxx').innerHTML = d.target.value;
-//						});
-
-
-//						document.getElementById('cl_opt-opa').addEventListener("onchange", function(eee) {
-//							console.log("i change");
-//							console.log(eee);
-//						});
-//						console.log(gika.oninput);
-//						$("#cl_opt-opa").change(function(d) {
-//							console.log(d.target.value);
+//						re = /.*\)/;
+//						ara = getComputedStyle(e.target).boxShadow.split(re);
+//						console.log(ara);
+//
+//						clBsColor = ara.shift();
+//						console.log(clBsColor);
+//						clGenInput2Do('text', getComputedStyle(e.target).opacity, 'cl_inpOpaText', "cl_prop-opa");
+//						console.log(e.target.style);
+//						clGenInput("range", 'cl_inpOpaRange', 'cl_prop-opa', 0, 1, 0.01, getComputedStyle(e.target).opacity);	document.getElementById('cl_inpOpaRange').addEventListener("input", function(d) {
 //							e.target.style.opacity = d.target.value;
-//							console.log(e);
-////							lolka = document.getElementById('xxx');
-////							console.log(lolka.innerHTML());
-//							document.getElementById('xxx').innerHTML = d.target.value;
+//							document.getElementById('cl_inpOpaText').value = d.target.value;
 //						});
 					}
 					coord1 = e.clientX + 'px';
@@ -148,7 +147,8 @@ function clGenInput2Do(type, value, id, target) {
 //// Hi generate main interface
 
 clGenHtml('div', 'cl_container', '', 'cl_container', 'body').style.cssText = "position: absolute; right: 100px; z-index: 2";
-clGenHtml('button', 'cl_ind-enable', 'Выключен', 'cl_ind-enable', 'cl_container').style.cssText = "background-color: rgba(255, 0, 0, 0.5)";
+(clicktune.enable) ? clGenHtml('button', 'cl_ind-enable', 'Включен', 'cl_ind-enable', 'cl_container').style.cssText = "background-color: rgba(0, 255, 0, 0.5)" : clGenHtml('button', 'cl_ind-enable', 'Выключен', 'cl_ind-enable', 'cl_container').style.cssText = "background-color: rgba(255, 0, 0, 0.5)";
+//clGenHtml('button', 'cl_ind-enable', 'Включен', 'cl_ind-enable', 'cl_container').style.cssText = "background-color: rgba(0, 255, 0, 0.5)";
 clGenHtml('button', 'cl_btn-opt', 'настройки', 'cl_btn-opt', 'cl_container');
 clGenHtml('div', 'cl_options', '', 'cl_options', 'cl_container').style.display = 'none';
 clGenHtml('label', '', 'opacity', 'cl_label-opa', 'cl_options');
@@ -157,6 +157,53 @@ clGenHtml('label', '', 'box-shadow', 'cl_label-bs', 'cl_options');
 clGenInputSimple('checkbox', clicktune.options['box-shadow'], 'cl_opt-bs', 'cl_label-bs');
 clGenHtml('label', '', 'text-shadow', 'cl_label-ts', 'cl_options');
 clGenInputSimple('checkbox', clicktune.options['text-shadow'], 'cl_opt-ts', 'cl_label-ts');
+
+
+
+
+
+
+
+
+
+
+
+//<div class="cl_part" style="border:1px solid red">
+//			<div class="cl_ptitle">Box-shadow</div>
+//			<div class="cl_prop" id="cl_prop-bs1">
+//				<span>Сдвиг по Х</span>
+//				<input id="cl_inpBSXText" type="text">
+//				<input id="cl_inpBSXRange" type="range">
+//			</div>
+//			<div class="cl_prop">
+//				<span>Сдвиг по Y</span>
+//				<input id="cl_inpBSYText" type="text">
+//				<input id="cl_inpBSYRange" type="range">
+//			</div>
+//			<div class="cl_prop">
+//				<span>Размытие</span>
+//				<input id="cl_inpBSBText" type="text">
+//				<input id="cl_inpBSBRange" type="range">
+//			</div>
+//			<div class="cl_prop">
+//				<span>Раcтяжение</span>
+//				<input id="cl_inpBSSText" type="text">
+//				<input id="cl_inpBSSRange" type="range">
+//			</div>
+//			<div class="cl_prop cl_colored">
+//				<span>Цвет</span>
+//				<input type="text">
+//				<input class="rangevoy" type="range">
+//			</div>
+//		</div>
+
+
+
+
+
+
+
+
 
 
 //clGenHtml('span', 'cl_ind-enable', 'Выключен', 'cl_ind-enable', 'cl_power-block').style.cssText = "color: red;background-color: black;";
@@ -182,6 +229,31 @@ clGenInputSimple('checkbox', clicktune.options['text-shadow'], 'cl_opt-ts', 'cl_
 //Generate controls clicktune
 
 
+
+//						clGenHtml('div', 'xxx', getComputedStyle(e.target).opacity, 'xxx', 'cl_controls');
+//						$("#cl_opt-opa").change(function(d) {
+//							console.log(d.target.value);
+////							e.target.style.opacity = d.target.value;
+////							console.log(e);
+//////							lolka = document.getElementById('xxx');
+//////							console.log(lolka.innerHTML());
+////							document.getElementById('xxx').innerHTML = d.target.value;
+//						});
+
+
+//						document.getElementById('cl_opt-opa').addEventListener("onchange", function(eee) {
+//							console.log("i change");
+//							console.log(eee);
+//						});
+//						console.log(gika.oninput);
+//						$("#cl_opt-opa").change(function(d) {
+//							console.log(d.target.value);
+//							e.target.style.opacity = d.target.value;
+//							console.log(e);
+////							lolka = document.getElementById('xxx');
+////							console.log(lolka.innerHTML());
+//							document.getElementById('xxx').innerHTML = d.target.value;
+//						});
 
 //
 //<div class="cl_container">
