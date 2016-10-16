@@ -67,11 +67,47 @@ clicktune = {
 						clGenHtml('div', 'cl_part', '', 'cl_part-bs', 'cl_controls');
 						clGenHtml('div', 'cl_ptitle', 'box-shadow', '', 'cl_part-bs');
 						clGenHtml('div', 'cl_prop', '', 'cl_prop-bs1', 'cl_part-bs');
-						clGenHtml('span', '', 'Сдвиг по Х', '', 'cl_part-bs');
+						clGenHtml('span', '', 'Сдвиг по Х', '', 'cl_prop-bs1');
 						console.log(getComputedStyle(e.target).boxShadow);
-		var ara = getComputedStyle(e.target).boxShadow.match(/(\d+\.\d+)|(\d+)/g);
-						console.log(ara);
+						var cl_arrBs = getComputedStyle(e.target).boxShadow.replace(/.*\) /, "").split(" ");
 
+						clGenInput2Do('text', cl_arrBs[0], 'cl_inpBSXText', "cl_prop-bs1");
+						clGenInput("range", 'cl_inpBSXRange', 'cl_prop-bs1', 0, 200, 1, cl_arrBs[0]);
+						document.getElementById('cl_inpBSXRange').addEventListener("input", function(d) {
+							cl_arrBs[0] = d.target.value;
+							e.target.style.boxShadow = "rgba(0,0,0,0.7) " + cl_arrBs[0] + 'px ' + '20px ' + '10px ' + '5px';
+							document.getElementById('cl_inpBSXText').value = d.target.value;
+								});
+
+						////////////property two
+
+						clGenHtml('div', 'cl_prop', '', 'cl_prop-bs2', 'cl_part-bs');
+						clGenHtml('span', '', 'Сдвиг по Y', '', 'cl_prop-bs2');
+						console.log(getComputedStyle(e.target).boxShadow);
+						cl_arrBs = getComputedStyle(e.target).boxShadow.replace(/.*\) /, "").split(" ");
+
+						clGenInput2Do('text', cl_arrBs[1], 'cl_inpBSXText2', "cl_prop-bs2");
+						clGenInput("range", 'cl_inpBSXRange2', 'cl_prop-bs2', 0, 200, 1, cl_arrBs[1]);
+						document.getElementById('cl_inpBSXRange2').addEventListener("input", function(d) {
+							cl_arrBs[1] = d.target.value;
+							e.target.style.boxShadow = "rgba(0,0,0,0.7) " + cl_arrBs[0] + 'px ' + cl_arrBs[1] + 'px ' + '10px ' + '5px';
+							document.getElementById('cl_inpBSXText2').value = d.target.value;
+								});
+
+
+
+
+//						console.log(ara);
+
+
+//						console.log(getComputedStyle(e.target).boxShadow);
+//		var ara = getComputedStyle(e.target).boxShadow.match(/(\d+\.\d+)|(\d+)/g);
+//						console.log(ara);
+//						console.log(ara.length);
+//
+//						var ara2 = ara.slice(0, 3);
+//						console.log(ara2);
+//						console.log(ara);
 //						re = /.*\)/;
 //						ara = getComputedStyle(e.target).boxShadow.split(re);
 //						console.log(ara);
